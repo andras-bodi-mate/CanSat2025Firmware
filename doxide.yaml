@@ -1,0 +1,10 @@
+title: CanSat 2025 Firmware
+output: docs
+description: Test
+files:
+  - "*.cpp"
+  - "**/*.cpp"
+  - "*.hpp"
+  - "**/*.hpp"
+  - "*.h"
+  - "**/*.h"
