@@ -7,7 +7,7 @@
 /// Represents the status LED
 class StatusLed {
     private:
-    static const int blinkPatternGap = 500; /// The gap between each blink pattern in milliseconds
+    static const int blinkPatternGap = 500; // The gap between each blink pattern in milliseconds
 
     Pin pin; /// The pin that will be used as ouput to the LED
     BlinkPattern currentPattern; /// The current blink pattern
@@ -22,10 +22,10 @@ class StatusLed {
     /// @param timer The timer handle
     void createTimer(void (StatusLed::*callback)(), String name, esp_timer_handle_t* timer);
 
-    /// Turns on the LED and starts the ledOffTimer
+    /// Turns on the LED and starts the ledOffTimer after a delay
     void ledOnTimerCallback();
 
-    /// Turns on the LED and starts the ledOnTimer
+    /// Turns on the LED and starts the ledOnTimer after a delay
     void ledOffTimerCallback();
 
     /// Starts the ledOffTimerCallback immediately
