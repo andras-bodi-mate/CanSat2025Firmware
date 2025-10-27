@@ -1,6 +1,2 @@
 *
-*.html
-*.css
-*.xml
-*.js
 !.gitignore
