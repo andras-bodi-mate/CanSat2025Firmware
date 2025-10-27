@@ -1,6 +1,6 @@
 #pragma once
 
-/// Represents a pattern to blink in
+/// A series of short and long blinks, that represents and error
 struct BlinkPattern {
     public:
     static constexpr int MAX_NUM_BLINKS = 16; /// The maximum number of blinks
