@@ -1,5 +1,7 @@
 site_name: CanSat 2025 Firmware
-site_description:  
+site_description:
+repo_url: https://github.com/andras-bodi-mate/CanSat2025Firmware
+repo_name: CanSat2025Firmware
 theme:
   name: material
   custom_dir: docs/overrides
