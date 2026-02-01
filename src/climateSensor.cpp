@@ -4,25 +4,24 @@
 
 #include "climateSensor.hpp"
 
-static Adafruit_BME280 bme;
-
-ClimateSensor::ClimateSensor(Pin sclPin, Pin sdaPin)
-    : sclPin(sclPin), sdaPin(sdaPin) {}
+ClimateSensor::ClimateSensor(Pin sclPin, Pin sdaPin, float seaLevelPressure, float temperatureOffset): sclPin(sclPin), sdaPin(sdaPin), seaLevelPressure(seaLevelPressure), temperatureOffset(temperatureOffset) {}
 
 void ClimateSensor::begin() {
-    Wire.begin(sdaPin, sclPin);
-    bme.begin(0x76);
+    if (! bme.begin(0x77, &Wire)) {
+        Serial.println("Could not find a valid BME280 sensor, check wiring!");
+        isInitialised = false;
+    }
+    else {
+        isInitialised = true;
+    }
 }
 
 ClimateData ClimateSensor::read() {
-    if (!bme.sensorID()) {
-        return ClimateData(false);
-    }
-
-    float temperature = bme.readTemperature();
-    float pressure = bme.readPressure() / 1000.0f;
-    float humidity = bme.readHumidity();
-    float altitude = bme.readAltitude(1013.25);
-
-    return ClimateData(true, temperature, pressure, humidity, altitude);
+    return ClimateData(
+        isInitialised,
+        bme.readTemperature() + temperatureOffset,
+        bme.readPressure(),
+        bme.readHumidity(),
+        bme.readAltitude(seaLevelPressure)
+    );
 }
