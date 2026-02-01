@@ -4,6 +4,7 @@
 #include "radioFrequency.hpp"
 
 /// Represents the long-range radio module (LoRa)
+
 class RadioModule {
     private:
     Pin rxPin;
@@ -26,6 +27,15 @@ class RadioModule {
     /// Sends the GPS position of the satellite to the ground station
     /// @param position The current GPS position of the satellite
     void sendSecondaryData(Position position);
+
+    #pragma once
+
+
+    enum class RadioFrequency {
+    A,  
+    B,  
+    C
+    };
 
     /// Sets the operating radio frequency of the module
     /// @param radioFrequency Radio frequency in kHz
