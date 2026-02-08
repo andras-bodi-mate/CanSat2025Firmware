@@ -1,12 +1,16 @@
 #pragma once
 #include "core.hpp"
 #include "gpsData.hpp"
+#include <TinyGPSPlus.h>
 
 /// Represents the GPS module
 class GpsModule {
     private:
-    Pin rxPin;
-    Pin txPin;
+    Pin rxPin; /// The pin that will be used for recieving data
+    Pin txPin; /// The pin that will be used for transmitting data
+    HardwareSerial gpsSerial;
+    TinyGPSPlus gps;
+    GpsData latestData;
 
     public:
     /// The GPS module will use the given pins for its input and output

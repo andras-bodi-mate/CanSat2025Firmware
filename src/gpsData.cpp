@@ -3,7 +3,7 @@
 GpsData::GpsData(bool isValid,
                  DateTime dateTime,
                  Position position,
-                 float speed)
+                 Speed speed)
     : isValid(isValid),
       dateTime(dateTime),
       position(position),

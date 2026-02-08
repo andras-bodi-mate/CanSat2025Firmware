@@ -19,8 +19,9 @@ struct RadioFrequency {
 
     /// 868.5 kHz
     static const RadioFrequency C;
+
+    bool operator ==(const RadioFrequency& other) {
+        return value == other.value;
+    }
     operator float() {return value;}
 };
-const RadioFrequency RadioFrequency::A(434.0);
-const RadioFrequency RadioFrequency::B(868.2);
-const RadioFrequency RadioFrequency::C(868.5);

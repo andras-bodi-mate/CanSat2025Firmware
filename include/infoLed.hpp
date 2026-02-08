@@ -5,10 +5,16 @@
 #include "blinkPattern.hpp"
 
 /// Represents the status LED
-class StatusLed {
+class InfoLed {
     private:
-    /// The gap between each blink pattern in milliseconds
-    static const int blinkPatternGap = 500;
+    /// The gap between each blink pattern in microseconds
+    static const int blinkPatternGap = 2000000;
+
+    /// The timer that will turn off the LED when it runs out
+    esp_timer_handle_t ledOffTimer;
+    
+    /// The timer that will turn on the LED when it runs out
+    esp_timer_handle_t ledOnTimer;
 
     /// The pin that will be used as ouput to the LED
     Pin pin;
@@ -22,23 +28,17 @@ class StatusLed {
     /// The current index in the pattern
     int currentIndex = 0;
     
-    /// The timer that will turn off the LED when it runs out
-    esp_timer_handle_t ledOffTimer;
+    /// Turns on the LED and starts the ledOffTimer after a delay
+    static void ledOnTimerCallback(void* arg);
     
-    /// The timer that will turn on the LED when it runs out
-    esp_timer_handle_t ledOnTimer;
-
+    /// Turns on the LED and starts the ledOnTimer after a delay
+    static void ledOffTimerCallback(void* arg);
+    
     /// Creates a timer using the given arguments
     /// @param callback The member function to use as the callback
     /// @param name The name of the timer
     /// @param timer The timer handle
-    void createTimer(void (StatusLed::*callback)(), String name, esp_timer_handle_t* timer);
-
-    /// Turns on the LED and starts the ledOffTimer after a delay
-    void ledOnTimerCallback();
-
-    /// Turns on the LED and starts the ledOnTimer after a delay
-    void ledOffTimerCallback();
+    void createTimer(void callback(void*), const char* name, esp_timer_handle_t* timer);
 
     /// Starts the ledOffTimerCallback immediately
     void startBlinking();
@@ -46,7 +46,7 @@ class StatusLed {
     public:
     /// The specified pin will be used as output to the status LED
     /// @param pin The pin that will be configured as the output during begin()
-    StatusLed(Pin pin);
+    InfoLed(Pin pin);
 
     /// Sets the given pin to OUTPUT
     void begin();

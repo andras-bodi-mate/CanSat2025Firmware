@@ -1,6 +1,7 @@
 #pragma once
 #include "dateTime.hpp"
 #include "position.hpp"
+#include "speed.hpp"
 
 /// Represents the data that the GPS module returns
 struct GpsData {
@@ -14,12 +15,12 @@ struct GpsData {
     Position position;
 
     /// Speed in meters per second
-    float speed; 
+    Speed speed; 
 
     /// Constructor
     /// @param isValid Wheather there was a problem while reading from the GPS module
     /// @param dateTime The date and time when the GPS data was collected
     /// @param position The latitude, longitude and altitude
     /// @param speed Speed in meters per second
-    GpsData(bool isValid = false, DateTime dateTime = DateTime(), Position position = Position(), float speed = 0);
+    GpsData(bool isValid = false, DateTime dateTime = DateTime(), Position position = Position(), Speed speed = Speed());
 };

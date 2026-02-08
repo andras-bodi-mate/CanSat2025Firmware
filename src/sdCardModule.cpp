@@ -24,7 +24,17 @@ void SdCardModule::saveData(ClimateData &climateData, GpsData &gpsData) {
     }
 
     // Write climate data
-    file.print(climateData.isValid ? "1" : "0");
+    file.print("\"");
+    file.print(climateData.isValid ? "VALID_CLIMATE_DATA" : "INVALID_CLIMATE_DATA");
+    file.print(" ");
+    file.print(gpsData.isValid ? "VALID_GPS" : "INVALID_GPS");
+    file.print(" ");
+    file.print(gpsData.position.isValid ? "VALID_POSITION" : "INVALID_POSITION");
+    file.print(" ");
+    file.print(gpsData.dateTime.isValid ? "VALID_DATETIME" : "INVALID_DATETIME");
+    file.print(" ");
+    file.print(gpsData.position.isValid ? "VALID_SPEED" : "INVALID_SPEED");
+    file.print("\"");
     file.print(",");
     file.print(climateData.temperature, 2);
     file.print(",");
@@ -36,8 +46,6 @@ void SdCardModule::saveData(ClimateData &climateData, GpsData &gpsData) {
     file.print(",");
 
     // Write GPS data to file
-    file.print(gpsData.isValid ? "1" : "0");
-    file.print(",");
     file.print(gpsData.position.latitude, 6);
     file.print(",");
     file.print(gpsData.position.longitude, 6);
@@ -56,7 +64,11 @@ void SdCardModule::saveData(ClimateData &climateData, GpsData &gpsData) {
     file.print(",");
     file.print(gpsData.dateTime.second);
     file.print(",");
-    file.println(gpsData.dateTime.microsecond);
+    file.print(gpsData.dateTime.millisecond);
+    file.print(",");
+    file.print(gpsData.speed.value);
+
+    file.print("\n");
 
     file.close();
 }

@@ -20,7 +20,7 @@ class ClimateSensor {
     /** The sensor will use the given pins for I2C communication 
      * @param sclPin The pin that will be used as SCL
      * @param sdaPin The pin that will be used as SDA
-     * @param seaLevelPressure Sea level pressure in kPa
+     * @param seaLevelPressure Sea level pressure in hPa
     */
     ClimateSensor(Pin sclPin, Pin sdaPin, float seaLevelPressure, float temperatureOffset);
 

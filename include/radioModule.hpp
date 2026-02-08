@@ -2,6 +2,8 @@
 #include "core.hpp"
 #include "position.hpp"
 #include "radioFrequency.hpp"
+#include "gpsData.hpp"
+#include "climateData.hpp"
 
 /// Represents the long-range radio module (LoRa)
 
@@ -9,6 +11,14 @@ class RadioModule {
     private:
     Pin rxPin;
     Pin txPin;
+    HardwareSerial radioSerial;
+    static constexpr int primaryDataSize = 256;
+    static constexpr int secondaryDataSize = 256;
+    uint32_t messageIndex = 0;
+
+    static String stringToHexStr(String str);
+    
+    void sendMessage(String message);
 
     public:
     /// The long-range radio module (LoRa) will use these pins for recieving and transmitting data
@@ -21,12 +31,13 @@ class RadioModule {
 
     /// Sends the primary data (temperature and pressure) to the ground station
     /// @param temperature Temperature in degrees celsius
-    /// @param pressure Relative air pressure in kPa
+    /// @param pressure Relative air pressure in hPa
     void sendPrimaryData(float temperature, float pressure);
 
     /// Sends the GPS position of the satellite to the ground station
-    /// @param position The current GPS position of the satellite
-    void sendSecondaryData(Position position);
+    /// @param climateData The data from the climate sensor
+    /// @param gpsData The data from the gps module
+    void sendSecondaryData(ClimateData climateData, GpsData gpsData);
 
     #pragma once
 

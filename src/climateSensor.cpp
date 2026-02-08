@@ -7,7 +7,8 @@
 ClimateSensor::ClimateSensor(Pin sclPin, Pin sdaPin, float seaLevelPressure, float temperatureOffset): sclPin(sclPin), sdaPin(sdaPin), seaLevelPressure(seaLevelPressure), temperatureOffset(temperatureOffset) {}
 
 void ClimateSensor::begin() {
-    if (! bme.begin(0x77, &Wire)) {
+    Wire.begin(sdaPin, sclPin);
+    if (!bme.begin(0x76, &Wire)) {
         Serial.println("Could not find a valid BME280 sensor, check wiring!");
         isInitialised = false;
     }
